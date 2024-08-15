@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\TaskController;
+use App\Http\Controllers\Api\SubtaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// // Public routes
+Route::post('register', [AuthController::class, 'register'])->name('register');
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
+//Protected Routes
+Route::middleware('auth:api')->group(function () {
+    // Project Routes
+    Route::apiResource('projects', ProjectController::class);
+
+    // Task Routes
+    Route::apiResource('projects.tasks', TaskController::class);
+
+    // Subtask Routes
+    Route::apiResource('tasks.subtasks', SubtaskController::class);
+
+    //Logout
+    Route::post('logout', [AuthController::class, 'logout']);
+
+    //Generate Report
+    Route::get('projects/{projectId}/report', [ProjectController::class, 'generateReport']);
 });
