@@ -1,66 +1,147 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+- **Title**: Project Task Management API.
+- **Description**: This project is a RESTful API built with Laravel for managing projects and tasks. It includes user authentication, error handling, input validation, and rate limiting. The API is secured using Laravel Passport for authentication.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+- **Features**:
+    - CRUD operations for projects and tasks.
+    - User authentication with Laravel Passport.
+    - Error handling and input validation.
+    - Rate-limiting to prevent abuse.
+    
+- **Prerequisites**:
+    - PHP 7.4+
+    - Composer
+    - MySQL or any other database
+    - Laravel 8.x
+    - Node.js and NPM/Yarn (if applicable)
 
-## About Laravel
+- **Prerequisites**:
+  ## Installation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+  1. **Clone the repository:**
+     ```bash
+     git clone [https://github.com/your-username/your-repository.git](https://github.com/reja-alt/project_management_system_api.git)
+     cd project_management_system_api
+     ```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+  2. **Install dependencies:**
+     ```bash
+     composer install
+     npm install && npm run dev # If using frontend assets
+     ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+  3. **Set up the environment:**
+     - Copy `.env.example` to `.env`:
+       ```bash
+       cp .env.example .env
+       ```
+     - Update the `.env` file with your database credentials and other configuration settings.
 
-## Learning Laravel
+  4. **Generate application key:**
+     ```bash
+     php artisan key:generate
+     ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+  5. **Run migrations:**
+     ```bash
+     php artisan migrate
+     ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+  6. **Install Laravel Passport:**
+     ```bash
+     php artisan passport:install
+     ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+  7. **Seed the database (optional):**
+     ```bash
+     php artisan db:seed
+     ```
 
-## Laravel Sponsors
+  8. **Serve the application:**
+     ```bash
+     php artisan serve
+     ```
+  ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **API Documentation**:
+  Example:
+  ```markdown
+  ## API Endpoints
 
-### Premium Partners
+**Authentication:**
+  - **POST /api/login**: Authenticate user and retrieve access token.
+  - **POST /api/register**: Register a new user.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+**Projects:**
+  - **GET /api/projects**: Retrieve a list of all projects.
+  - **POST /api/projects**: Create a new project.
+  - **GET /api/projects/{project}**: Retrieve a specific project.
+  - **PUT /api/projects/{project}**: Update a project.
+  - **DELETE /api/projects/{project}**: Delete a project.
 
-## Contributing
+**Tasks:**
+  - **GET /api/projects/{project}/tasks**: Retrieve a list of all tasks.
+  - **POST /api/projects/{project}/tasks**: Create a new task.
+  - **GET /api/projects/{project}/tasks/{task}**: Retrieve a specific task.
+  - **PUT /api/projects/{project}/tasks/{task}**: Update a task.
+  - **DELETE /api/projects/{project}/tasks/{task}**: Delete a task.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**SubTasks:**
+  - **GET /api/tasks/{task}/subtasks**: Retrieve a list of all subtasks.
+  - **POST /api/tasks/{task}/subtasks**: Create a new subtask.
+  - **GET /api/tasks/{task}/subtasks/{subtask}**: Retrieve a specific subtask.
+  - **PUT /api/tasks/{task}/subtasks/{subtask}**: Update a subtask.
+  - **DELETE /api/tasks/{task}/subtasks/{subtask}**: Delete a subtask.
 
-## Code of Conduct
+**Report Generate:**
+    - **GET /api/projects/{projectId}/report**: Generate a specific project's task and subtask report.
+    
+**Error Handling:**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+  Example:
+  ```markdown
+  ## Error Handling
 
-## Security Vulnerabilities
+  The API returns standardized error responses. Here are some examples:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+  - **401 Unauthorized**: Returned when the user is not authenticated.
+  - **404 Not Found**: Returned when a resource cannot be found.
+  - **422 Unprocessable Entity**: Returned when validation fails.
+  ```
+**Rate Limiting:**
 
-## License
+  Example:
+  ```markdown
+  ## Rate Limiting
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+  The API is rate-limited to prevent abuse. Users can make up to 60 requests per minute. If the limit is exceeded, a `429 Too Many Requests` response is returned.
+  ```
+**Deployment:**
+
+  Example:
+  ```markdown
+  ## Deployment
+
+  To deploy the application, ensure the following steps are completed:
+
+  1. **Set up the production environment:**
+     - Update the `.env` file with production settings.
+     - Run migrations and install Laravel Passport.
+
+  2. **Build assets:**
+     ```bash
+     npm run production
+     ```
+
+  3. **Set up a web server (e.g., Nginx, Apache):**
+     - Point the server to the `public` directory of the application.
+
+  4. **Optimize the application:**
+     ```bash
+     php artisan optimize
+     php artisan config:cache
+     php artisan route:cache
+     php artisan view:cache
+     ```
+  ```
+
+  ```
