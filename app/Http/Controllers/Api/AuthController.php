@@ -27,18 +27,13 @@ class AuthController extends Controller
         ]);
 
         // Create a Passport token
-        $tokenResult = $user->createToken('authToken');
-        $token = $tokenResult->token;
-
-        // Set token expiration (optional)
-        $token->expires_at = now()->addWeeks(1);
-        $token->save();
+        $tokenResult = $user->createToken('authToken')->accessToken;
 
         return response()->json([
             'user' => $user,
-            'access_token' => $tokenResult->accessToken,
+            'access_token' => $tokenResult,
             'token_type' => 'Bearer',
-            'expires_at' => $token->expires_at->toDateTimeString(),
+            'expires_at' => now()->addWeeks(1)->toDateTimeString(), // Default expiration
         ], 201);
     }
 
@@ -59,18 +54,13 @@ class AuthController extends Controller
         $user = Auth::user();
 
         // Create a Passport token
-        $tokenResult = $user->createToken('authToken');
-        $token = $tokenResult->token;
-
-        // Set token expiration (optional)
-        $token->expires_at = now()->addWeeks(1);
-        $token->save();
+        $tokenResult = $user->createToken('authToken')->accessToken;
 
         return response()->json([
             'user' => $user,
-            'access_token' => $tokenResult->accessToken,
+            'access_token' => $tokenResult,
             'token_type' => 'Bearer',
-            'expires_at' => $token->expires_at->toDateTimeString(),
+            'expires_at' => now()->addWeeks(1)->toDateTimeString(), // Default expiration
         ]);
     }
 
